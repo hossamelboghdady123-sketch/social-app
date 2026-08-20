@@ -4,13 +4,36 @@ pool:
   name: Default
 
 steps:
+
+- checkout: self
+
 - bash: |
-    echo "HELLO HOSSAM"
-    echo "PIPELINE VERSION 2"
-    echo "Agent: $AGENT_NAME"
-    hostname
-    whoami
+    echo "=============================="
+    echo "PYTHON TEST"
+    echo "=============================="
+
+    cd backend/reaction-service
+
+    echo "Current directory:"
     pwd
+
+    echo ""
+    echo "Files:"
+    ls -la
+
+    echo ""
+    echo "Python version:"
     python3 --version
-    docker --version
-  displayName: 'TEST PIPELINE'
+
+    echo ""
+    echo "Installing dependencies..."
+    python3 -m pip install --user -r requirements.txt
+
+    echo ""
+    echo "Compiling application..."
+    python3 -m py_compile app.py
+
+    echo ""
+    echo "Python test PASSED"
+
+  displayName: 'Python Tests'
