@@ -1,0 +1,52 @@
+services:
+
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb
+
+    environment:
+      MARIADB_ROOT_PASSWORD: RootPass123
+      MARIADB_DATABASE: socialdb
+      MARIADB_USER: socialuser
+      MARIADB_PASSWORD: SocialPass123
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    networks:
+      - social-network
+
+  reaction-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: reaction-service
+
+    depends_on:
+      - mariadb
+
+    environment:
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: socialdb
+      DB_USER: socialuser
+      DB_PASSWORD: SocialPass123
+
+    ports:
+      - "5000:5000"
+
+    networks:
+      - social-network
+
+networks:
+  social-network:
+    external: true
+
+volumes:
+  mariadb-data:
+    name: mariadb-data
