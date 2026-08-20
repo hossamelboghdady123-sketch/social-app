@@ -4,13 +4,31 @@ pool:
   name: Default
 
 steps:
+
+- checkout: self
+
 - bash: |
     echo "=========================="
-    echo "HELLO FROM LOCAL AGENT"
+    echo "LOCAL AGENT INFORMATION"
     echo "=========================="
+
     hostname
     whoami
     pwd
+
+    echo ""
+    echo "Python:"
     python3 --version
+
+    echo ""
+    echo "Docker:"
     docker --version
-  displayName: Test Local Agent
+
+    echo ""
+    echo "=========================="
+    echo "REPOSITORY FILES"
+    echo "=========================="
+
+    find . -maxdepth 5 -type f | sort
+
+  displayName: 'Checkout GitHub and Inspect Repository'
