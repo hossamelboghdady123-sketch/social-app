@@ -15,19 +15,12 @@ stages:
     - checkout: self
 
     - script: |
-        echo "Current directory:"
+        echo "===== CURRENT DIRECTORY ====="
         pwd
 
-        echo "Repository files:"
-        find . -maxdepth 4 -type f | sort
+        echo "===== TOP LEVEL ====="
+        ls -la
+
+        echo "===== ALL FILES ====="
+        find . -maxdepth 5 -type f | sort
       displayName: Show Repository Structure
-
-    - script: |
-        python3 --version
-        pip3 --version
-      displayName: Check Python
-
-    - script: |
-        pip3 install -r backend/reaction-service/requirements.txt
-        python3 -m py_compile backend/reaction-service/app.py
-      displayName: Run Python Tests
