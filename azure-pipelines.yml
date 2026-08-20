@@ -5,26 +5,12 @@ pool:
 
 steps:
 - bash: |
-    echo "############################"
-    echo "MY PIPELINE IS RUNNING"
-    echo "############################"
-
-    echo "Agent:"
-    echo "$AGENT_NAME"
-
-    echo "Machine:"
+    echo "HELLO HOSSAM"
+    echo "PIPELINE VERSION 2"
+    echo "Agent: $AGENT_NAME"
     hostname
-
-    echo "User:"
     whoami
-
-    echo "Directory:"
     pwd
-
-    echo "Python:"
     python3 --version
-
-    echo "Docker:"
     docker --version
-
   displayName: 'TEST PIPELINE'
