@@ -1,16 +1,61 @@
-trigger: none
+trigger:
+- main
 
 pool:
   name: Default
 
 steps:
 
-- checkout: self
-
+# =========================
+# 1. CHECK AGENT
+# =========================
 - bash: |
-    echo "=============================="
+    echo "=========================="
+    echo "AGENT INFORMATION"
+    echo "=========================="
+
+    echo "Agent: $AGENT_NAME"
+    echo "Machine:"
+    hostname
+
+    echo "User:"
+    whoami
+
+    echo "Working Directory:"
+    pwd
+
+    echo "Python:"
+    python3 --version
+
+    echo "Docker:"
+    docker --version
+
+  displayName: 'Check Local Agent'
+
+
+# =========================
+# 2. SHOW PROJECT
+# =========================
+- bash: |
+    echo "=========================="
+    echo "PROJECT FILES"
+    echo "=========================="
+
+    pwd
+    echo ""
+    echo "Repository:"
+    find . -maxdepth 4 -type f | sort
+
+  displayName: 'Check Repository Files'
+
+
+# =========================
+# 3. PYTHON TEST
+# =========================
+- bash: |
+    echo "=========================="
     echo "PYTHON TEST"
-    echo "=============================="
+    echo "=========================="
 
     cd backend/reaction-service
 
@@ -22,18 +67,33 @@ steps:
     ls -la
 
     echo ""
-    echo "Python version:"
-    python3 --version
-
-    echo ""
     echo "Installing dependencies..."
     python3 -m pip install --user -r requirements.txt
 
     echo ""
-    echo "Compiling application..."
+    echo "Compiling Python..."
     python3 -m py_compile app.py
 
     echo ""
-    echo "Python test PASSED"
+    echo "PYTHON TEST PASSED"
 
   displayName: 'Python Tests'
+
+
+# =========================
+# 4. DOCKER BUILD
+# =========================
+- bash: |
+    echo "=========================="
+    echo "DOCKER BUILD"
+    echo "=========================="
+
+    cd backend/reaction-service
+
+    docker build -t reaction-service:$(Build.BuildId) .
+
+    echo ""
+    echo "Docker images:"
+    docker images | grep reaction-service
+
+  displayName: 'Build Docker Image'
