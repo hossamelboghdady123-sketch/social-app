@@ -2,7 +2,7 @@ trigger:
   - main
 
 pool:
-  vmImage: default
+  vmImage: 'default'
 
 variables:
   imageName: reaction-service
