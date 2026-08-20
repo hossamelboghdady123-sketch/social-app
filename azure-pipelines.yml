@@ -4,40 +4,6 @@ trigger:
 pool:
   name: Default
 
-stages:
-- stage: Test
-  displayName: Test Stage
-
-  jobs:
-  - job: PythonTests
-    displayName: PythonTests
-
-    steps:
-    - checkout: self
-
-    - script: |
-        echo "================================"
-        echo "AZURE DEVOPS AGENT TEST"
-        echo "================================"
-
-        echo "Hostname:"
-        hostname
-
-        echo "User:"
-        whoami
-
-        echo "Current directory:"
-        pwd
-
-        echo "Files:"
-        ls -la
-
-        echo "Repository files:"
-        find . -maxdepth 3 -type f | sort
-
-        echo "Python:"
-        python3 --version
-
-        echo "Docker:"
-        docker --version
-      displayName: Test Agent
+steps:
+- script: echo "HELLO FROM MY LOCAL AGENT"
+  displayName: Test Agent
