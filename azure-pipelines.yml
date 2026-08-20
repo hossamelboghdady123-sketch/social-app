@@ -6,7 +6,7 @@ pool:
 
 stages:
 - stage: Test
-  displayName: Python Tests
+  displayName: Test Stage
 
   jobs:
   - job: PythonTests
@@ -16,12 +16,28 @@ stages:
     - checkout: self
 
     - script: |
-        echo "===== CURRENT DIRECTORY ====="
+        echo "================================"
+        echo "AZURE DEVOPS AGENT TEST"
+        echo "================================"
+
+        echo "Hostname:"
+        hostname
+
+        echo "User:"
+        whoami
+
+        echo "Current directory:"
         pwd
 
-        echo "===== TOP LEVEL ====="
+        echo "Files:"
         ls -la
 
-        echo "===== ALL FILES ====="
-        find . -maxdepth 5 -type f | sort
-      displayName: Show Repository Structure
+        echo "Repository files:"
+        find . -maxdepth 3 -type f | sort
+
+        echo "Python:"
+        python3 --version
+
+        echo "Docker:"
+        docker --version
+      displayName: Test Agent
