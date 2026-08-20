@@ -9,11 +9,16 @@ steps:
 
 - bash: |
     echo "=========================="
-    echo "LOCAL AGENT INFORMATION"
+    echo "HELLO FROM LOCAL AGENT"
     echo "=========================="
 
+    echo "Hostname:"
     hostname
+
+    echo "User:"
     whoami
+
+    echo "Current directory:"
     pwd
 
     echo ""
@@ -26,9 +31,9 @@ steps:
 
     echo ""
     echo "=========================="
-    echo "REPOSITORY FILES"
+    echo "FILES FROM GITHUB"
     echo "=========================="
 
-    find . -maxdepth 5 -type f | sort
+    find . -maxdepth 6 -type f | sort
 
-  displayName: 'Checkout GitHub and Inspect Repository'
+  displayName: 'Checkout GitHub and Show Files'
