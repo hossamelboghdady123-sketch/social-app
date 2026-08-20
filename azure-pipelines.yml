@@ -10,6 +10,7 @@ stages:
 
   jobs:
   - job: PythonTests
+    displayName: PythonTests
 
     steps:
     - checkout: self
