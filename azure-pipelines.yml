@@ -4,36 +4,27 @@ pool:
   name: Default
 
 steps:
-
-- checkout: self
-
 - bash: |
-    echo "=========================="
-    echo "HELLO FROM LOCAL AGENT"
-    echo "=========================="
+    echo "############################"
+    echo "MY PIPELINE IS RUNNING"
+    echo "############################"
 
-    echo "Hostname:"
+    echo "Agent:"
+    echo "$AGENT_NAME"
+
+    echo "Machine:"
     hostname
 
     echo "User:"
     whoami
 
-    echo "Current directory:"
+    echo "Directory:"
     pwd
 
-    echo ""
     echo "Python:"
     python3 --version
 
-    echo ""
     echo "Docker:"
     docker --version
 
-    echo ""
-    echo "=========================="
-    echo "FILES FROM GITHUB"
-    echo "=========================="
-
-    find . -maxdepth 6 -type f | sort
-
-  displayName: 'Checkout GitHub and Show Files'
+  displayName: 'TEST PIPELINE'
